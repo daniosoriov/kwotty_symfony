@@ -11,19 +11,28 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 class GenusController extends Controller
 {
     /**
-     * @Route("/genus/{genusName}")
+     * @Route("/genus", name="genus_list")
+     */
+    public function listAction() {
+        return $this->render('genus/list.html.twig');
+    }
+
+    /**
+     * @Route("/genus/{genusName}", name="genus_show")
      */
     public function showAction($genusName) {
-        $templating = $this->container->get('templating');
-        $html = $templating->render('genus/show.html.twig', [
+        $notes = [
+            'first line',
+            'second line',
+            'third line',
+        ];
+        return $this->render('genus/show.html.twig', [
             'name' => $genusName,
+            'notes' => $notes,
         ]);
-
-        return new Response($html);
     }
 }

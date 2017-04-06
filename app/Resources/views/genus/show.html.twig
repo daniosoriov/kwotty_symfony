@@ -1,1 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Genus {{ name }}!{% endblock %}
+
+{% block body %}
 <h1>The genus {{ name }}</h1>
+{% if (name == 'hola') %}
+    <p>You have selected hola!</p>
+{% else %}
+    <p>You haven't selected hola!</p>
+{% endif %}
+<ul>
+    {% for note in notes %}
+        <li>{{ note }}</li>
+    {% endfor %}
+</ul>
+<a href="/genus">Go back to list</a>
+
+{# use dump() to get all available variables, also symfony variables #}
+{% endblock %}
