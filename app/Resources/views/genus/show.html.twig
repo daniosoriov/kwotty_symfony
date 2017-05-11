@@ -3,18 +3,37 @@
 {% block title %}Genus {{ name }}!{% endblock %}
 
 {% block body %}
-<h1>The genus {{ name }}</h1>
-{% if (name == 'hola') %}
-    <p>You have selected hola!</p>
-{% else %}
-    <p>You haven't selected hola!</p>
-{% endif %}
-<ul>
-    {% for note in notes %}
-        <li>{{ note }}</li>
-    {% endfor %}
-</ul>
-<a href="/genus">Go back to list</a>
+    <div class="container">
+        <h1>Genus {{ name }}</h1>
+        {% if (name == 'hola') %}
+            <p>You have selected hola!</p>
+        {% else %}
+            <p>You haven't selected hola!</p>
+        {% endif %}
 
-{# use dump() to get all available variables, also symfony variables #}
+        <p><a href="{{ path('genus_notes', {'genusName': name}) }}">Notes</a></p>
+
+        {#% if (notes) %}
+            <ul>
+                {% for note in notes %}
+                    <li>{{ note }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %#}
+        <p><a href="/genus">Go back to list</a></p>
+    </div>
+
+    {# use dump() to get all available variables, also symfony variables #}
+    {# useful example for ReactJS and ajax: http://knpuniversity.com/screencast/symfony/reactjs-api#play #}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
+    <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
+
+    {#<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>#}
 {% endblock %}

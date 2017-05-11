@@ -1,0 +1,74 @@
+{%  extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="text-center">Login</h1>
+            </div>
+        </div>
+        <div class="row">
+        {% if error %}
+            <div class="col-sm-offset-2 col-sm-8 alert alert-danger alert-dismissable fade in">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Error:</strong> {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+            <div class="col-sm-2"></div>
+        {% endif %}
+        </div>
+
+        {#
+            If your application logs users in via a third-party service such as Google, Facebook or Twitter,
+            check out the HWIOAuthBundle community bundle.
+            https://github.com/hwi/HWIOAuthBundle
+
+            Actually, all of this can be configured under the form_login key.
+            See Form Login Configuration for more details.
+            http://symfony.com/doc/current/reference/configuration/security.html#reference-security-firewall-form-login
+
+            This login form is currently not protected against CSRF attacks.
+            Read Using CSRF Protection in the Login Form on how to protect your login form.
+            http://symfony.com/doc/current/security/csrf_in_login_form.html
+
+            To redirect after login, check:
+            http://symfony.com/doc/current/security/form_login.html
+
+            As routing is done before security, 404 error pages are not covered by any firewall.
+            This means you can't check for security or even access the user object on these pages.
+            See How to Customize Error Pages for more details.
+            http://symfony.com/doc/current/controller/error_pages.html
+        #}
+        <div class="row">
+            <form action="{{ path('login') }}" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label for="username" class="control-label col-sm-2">Username:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="username" name="_username" value="{{ last_username }}" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="control-label col-sm-2">Password</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" id="password" name="_password" />
+                    </div>
+                </div>
+
+                {#
+                    If you want to control the URL the user
+                    is redirected to on success (more details below)
+                    <input type="hidden" name="_target_path" value="/account" />
+                #}
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-8">
+                        <button class="btn btn-default" type="submit">Login</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}

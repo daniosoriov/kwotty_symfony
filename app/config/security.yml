@@ -1,9 +1,22 @@
 # To get started with security, check out the documentation:
-# http://symfony.com/doc/current/security.html
+# https://symfony.com/doc/current/security.html
+#
+# http://symfony.com/doc/current/reference/configuration/security.html
 security:
 
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    # https://symfony.com/doc/master/bundles/FOSUserBundle/index.html
     providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
         in_memory:
             memory: ~
 
@@ -14,11 +27,36 @@ security:
             security: false
 
         main:
-            anonymous: ~
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_token_generator: security.csrf.token_manager
+
+            logout: true
+            anonymous: true
+
+            # anonymous: ~
             # activate different ways to authenticate
 
             # http_basic: ~
             # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
 
-            # form_login: ~
+            # form_login:
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+            # The login_path and check_path can also be route names (but cannot have mandatory wildcards - e.g. /security/{foo}
+            # where foo has no default value).
+                # login_path: login
+                # check_path: login
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_ADMIN }
+
+         # require ROLE_ADMIN for /admin*
+         # - { path: ^/admin, roles: ROLE_ADMIN }
+
+         # require login for all pages except the login page
+         # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         # - { path: ^/, roles: ROLE_ADMIN }

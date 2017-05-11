@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product List{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Products</h1>
+        <p><a href="{{ path('product_create') }}" class="btn btn-info">Add product</a></p>
+        <p>This is the list of available products.</p>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Product</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.description }}</td>
+                    <td>{{ product.price }}</td>
+                    <td><a href="{{ path('product_update', {'productId': product.id}) }}">Edit</a></td>
+                    <td><a href="{{ path('product_delete', {'productId': product.id}) }}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

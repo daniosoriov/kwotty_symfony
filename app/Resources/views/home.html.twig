@@ -9,8 +9,8 @@
         <div class="col-md-8">
             <h3 class="quote-day">Kwotty of the day</h3>
             <blockquote>
-                <p>You can fool some of the people all of the time, and all of the people some of the time, but you can not fool all of the people all of the time.</p>
-                <footer>Abraham Lincoln</footer>
+                <p>{{ quote_day['quote'] }}</p>
+                <footer>{{ quote_day['author'] }}</footer>
             </blockquote>
         </div>
         <div class="col-md-2"></div>
@@ -20,14 +20,12 @@
         <div class="col-md-2"></div>
         <div class="col-md-8">
             <h4 class="quote-famous">Famous kwottys</h4>
+            {% for quote in quotes %}
             <blockquote>
-                <p>Our new Constitution is now established, everything seems to promise it will be durable; but, in this world, nothing is certain except death and taxes.</p>
-                <footer>Benjamin Franklin</footer>
+                <p>{{ quote['quote'] }}</p>
+                <footer>{{ quote['author'] }}</footer>
             </blockquote>
-            <blockquote>
-                <p>For 50 years, WWF has been protecting the future of nature. The world's leading conservation organization, WWF works in 100 countries and is supported by 1.2 million members in the United States and close to 5 million globally.</p>
-                <footer>From <cite title="WWF">WWF</cite></footer>
-            </blockquote>
+            {% endfor %}
         </div>
         <div class="col-md-2"></div>
     </div>
